@@ -10,8 +10,6 @@ import java.util.Date;
 /**
  * Handles the api response, just pass message, http status & response object (if any)
  */
-
-
 public class ResponseHandler {
     public static ResponseEntity<ApiResponse> generateResponse(String message, HttpStatus status, Object responseObj) {
 
