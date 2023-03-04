@@ -4,16 +4,15 @@ package me.ajangid.playgroundxspringbootboilerplate.controllers;
 import handlers.ResponseHandler;
 import lombok.RequiredArgsConstructor;
 import me.ajangid.playgroundxspringbootboilerplate.dto.ApiResponse;
+import me.ajangid.playgroundxspringbootboilerplate.dto.ProductRequest;
 import me.ajangid.playgroundxspringbootboilerplate.dto.ProductResponse;
 import me.ajangid.playgroundxspringbootboilerplate.services.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -36,6 +35,17 @@ public class ApiController {
         List<ProductResponse> products = productService.getAllProducts();
 
         return ResponseHandler.generateResponse("Product(s) fetched successfully.", HttpStatus.OK, products);
+    }
+
+
+    // Add
+    @PostMapping
+    public ResponseEntity<ApiResponse> createProduct(@Valid @RequestBody ProductRequest productRequest) {
+
+        productService.createProduct(productRequest);
+
+        return ResponseHandler.generateResponse("Product created successfully.", HttpStatus.CREATED, productRequest);
+
     }
 
 }
