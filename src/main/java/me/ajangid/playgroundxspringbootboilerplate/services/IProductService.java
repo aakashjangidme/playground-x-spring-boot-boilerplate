@@ -8,5 +8,10 @@ import java.util.List;
 public interface IProductService {
 
     List<ProductResponse> getAllProducts();
+
     public void createProduct(ProductRequest productRequest);
+
+    public ProductResponse getProductById(long id);
+
+    public void deleteProduct(long id);
 }

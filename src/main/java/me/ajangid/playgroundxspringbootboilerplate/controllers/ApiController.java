@@ -48,4 +48,18 @@ public class ApiController {
 
     }
 
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<ApiResponse> getProductById(@PathVariable long id) {
+        ProductResponse productResponse = productService.getProductById(id);
+
+        return ResponseHandler.generateResponse("Fetched one product.", HttpStatus.OK, productResponse);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<ApiResponse> deleteProduct(@PathVariable long id) {
+        productService.deleteProduct(id);
+
+        return ResponseHandler.generateResponse("Deleted one product.", HttpStatus.ACCEPTED, null);
+    }
+
 }
