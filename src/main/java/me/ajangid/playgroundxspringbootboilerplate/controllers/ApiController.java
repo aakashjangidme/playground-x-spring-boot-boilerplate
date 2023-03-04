@@ -62,4 +62,13 @@ public class ApiController {
         return ResponseHandler.generateResponse("Deleted one product.", HttpStatus.ACCEPTED, null);
     }
 
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<ApiResponse> updateProduct(@Valid @RequestBody ProductRequest productRequest,  @PathVariable long id) {
+
+        productService.updateProduct(productRequest, id);
+
+        return ResponseHandler.generateResponse("Product updated successfully.", HttpStatus.CREATED, productRequest);
+
+    }
+
 }
