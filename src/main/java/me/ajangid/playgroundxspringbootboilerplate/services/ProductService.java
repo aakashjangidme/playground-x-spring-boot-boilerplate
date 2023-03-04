@@ -65,6 +65,23 @@ public class ProductService implements IProductService {
         }
     }
 
+    @Override
+    public void updateProduct(ProductRequest productRequest, long id) {
+        log.info("productId : {}", id);
+        Optional<Product> product = productRepository.findById(id);
+
+        if (product.isPresent()) {
+            log.info("product : {}", product.get());
+
+            Product newProduct = Product.builder().id(id).name(productRequest.getName()).description(productRequest.getDescription()).price(productRequest.getPrice()).category(productRequest.getCategory()).image(productRequest.getImage()).build();
+
+            productRepository.save(newProduct);
+
+        } else {
+            throw new CustomDataNotFoundException("Product not found");
+        }
+    }
+
     private ProductResponse mapToProductResponse(Product product) {
         return ProductResponse.builder().id(product.getId()).name(product.getName()).description(product.getDescription()).price(product.getPrice()).category(product.getCategory()).image(product.getImage()).build();
     }
